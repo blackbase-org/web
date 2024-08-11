@@ -9,6 +9,7 @@ import { Checkbox } from "primereact/checkbox";
 import { Page } from "../../../../types/layout";
 import { classNames } from "primereact/utils";
 import { LayoutContext } from "../../../../layout/context/layoutcontext";
+import { useAuth } from "@/store/auth";
 
 const Register: Page = () => {
   const [confirmed, setConfirmed] = useState(false);
@@ -16,33 +17,47 @@ const Register: Page = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [birth, setBirth] = useState("");
+  const [first_name, setFirstname] = useState("");
+  const [last_name, setLastname] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [referer, setReferer] = useState("");
+  const [referer_id, setReferer] = useState("");
 
   const { layoutConfig } = useContext(LayoutContext);
   const router = useRouter();
-
-  const goHome = () => {
-    router.push("/");
-  };
+  const { register, verifyEmail } = useAuth();
+//   const taost = useToast();
 
   const goToLogin = () => {
     router.push("/auth/login");
   };
 
-  const onSignUp = () => {
+  const onSignUp = async() => {
     console.log("Sign Up");
 
     // call api to register
+    const res = await register({
+        first_name,
+        last_name,
+        username,
+        password,
+        phone,
+        email,
+        birth,
+        referer_id
+    })
 
+    console.log("register", res);
     // if register is successful, navigate to dashboard
-    router.push("/dashboard");
+   if (res){
+    verifyEmail(username);
+    router.push("/auth/verification");
+   } 
+//    else 
   };
 
   const checkUsername = (e: any) => {
@@ -127,7 +142,7 @@ const Register: Page = () => {
               "bg-no-repeat"
             )}
             style={{
-              padding: "20% 10% 20% 10%",
+              padding: "10% 10% 10% 10%",
               background: "var(--exception-pages-image)",
             }}
           >
@@ -165,6 +180,17 @@ const Register: Page = () => {
                     className="block mb-3"
                     style={{ maxWidth: "320px", minWidth: "270px" }}
                     onChange={(e) => setLastname(e.target.value)}
+                  />
+                </span>
+                <span className="p-input-icon-left">
+                  <i className="pi pi-calendar"></i>
+                  <InputText
+                    type="date"
+                    autoComplete="off"
+                    placeholder="birth"
+                    className="block mb-3"
+                    style={{ maxWidth: "320px", minWidth: "270px" }}
+                    onChange={(e) => setBirth(e.target.value)}
                   />
                 </span>
                 <div className="space-y-1">
@@ -236,7 +262,7 @@ const Register: Page = () => {
                       placeholder="Confirm Password"
                       className="block mb-3"
                       style={{ maxWidth: "320px", minWidth: "270px" }}
-                        onChange={confirmPassword}
+                      onChange={confirmPassword}
                     />
                   </span>
                   {confirmPasswordError && (
@@ -301,8 +327,10 @@ const Register: Page = () => {
                       !password ||
                       !email ||
                       !phone ||
-                      !firstname ||
-                      !lastname
+                      !first_name ||
+                      !last_name ||
+                      !referer_id ||
+                      !birth
                     }
                     onClick={onSignUp}
                   >
@@ -335,7 +363,7 @@ const Register: Page = () => {
                   alt="appname"
                 /> */}
 
-                <h3>BlackBase</h3>
+                BlackBase
               </div>
               <span className="text-sm text-color-secondary mr-3">
                 Copyright 2024

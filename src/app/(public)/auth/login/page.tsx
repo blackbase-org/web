@@ -7,6 +7,7 @@ import { InputText } from "primereact/inputtext";
 import { Page } from "../../../../types/layout";
 import { LayoutContext } from "../../../../layout/context/layoutcontext";
 import { classNames } from "primereact/utils";
+import { useAuth } from "@/store/auth";
 
 const Login: Page = () => {
   const { layoutConfig } = useContext(LayoutContext);
@@ -14,26 +15,31 @@ const Login: Page = () => {
   const [verified, setVerified] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const { verifyAccount, login } = useAuth();
   const goToForgotPassword = () => {
     router.push("/auth/forgotpassword");
-  }
+  };
 
-  const verifyUsername = () => {
+  const verifyUsername = async () => {
     // call api to verify username
-    const verified = false;
+    const verified = await verifyAccount({username});
+    // console.log("verify username", verified);
+    // const verified = false;
     // if username is verified, setVerified to true
     setVerified(verified);
-    if(!verified) {
-        router.push("/auth/register");
+    if (!verified) {
+      router.push("/auth/register");
     }
-  }
+  };
 
-  const login = () => {
+  const onLogin = async () => {
     console.log("login", username, password);
     // call api to login
+    const res = await login({ username, password });
     // if login is successful, navigate to dashboard
-    router.push("/dashboard");
-  }
+    if (res) router.push("/dashboard");
+    // else 
+  };
 
   return (
     <React.Fragment>
@@ -77,7 +83,7 @@ const Login: Page = () => {
                   style={{ width: "45px" }}
                   alt="logo"
                 /> */}
-               <h3>BlackBase</h3>
+                <h3>BlackBase</h3>
               </div>
               <div className="form-container">
                 <span className="p-input-icon-left">
@@ -115,24 +121,25 @@ const Login: Page = () => {
               </div>
               <div className="button-container">
                 {verified ? (
-                <Button
-                  type="button"
-                  onClick={login}
-                  className="block"
-                  style={{ maxWidth: "320px", marginBottom: "32px" }}
-                  disabled={!username || !password}
-                >
-                  Login
-                </Button>): (
                   <Button
-                  type="button"
-                  onClick={verifyUsername}
-                  className="block"
-                  style={{ maxWidth: "320px", marginBottom: "32px" }}
-                  disabled={!username}
-                >
+                    type="button"
+                    onClick={onLogin}
+                    className="block"
+                    style={{ maxWidth: "320px", marginBottom: "32px" }}
+                    disabled={!username || !password}
+                  >
+                    Login
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    onClick={verifyUsername}
+                    className="block"
+                    style={{ maxWidth: "320px", marginBottom: "32px" }}
+                    disabled={!username}
+                  >
                     Verify
-                    </Button>
+                  </Button>
                 )}
                 {/* <span className="flex text-sm text-color-secondary">
                   Don’t have an account?
@@ -146,7 +153,7 @@ const Login: Page = () => {
               style={{ bottom: "75px" }}
             >
               <div className="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
-                <img
+                {/* <img
                   src="/layout/images/logo/logo-gray.png"
                   className="login-footer-logo"
                   style={{ width: "22px" }}
@@ -157,10 +164,11 @@ const Login: Page = () => {
                   className="login-footer-appname ml-2"
                   style={{ width: "45px" }}
                   alt="appname"
-                />
+                /> */}
+                BlackBase
               </div>
               <span className="text-sm text-color-secondary mr-3">
-                Copyright 2023
+                Copyright 2024
               </span>
             </div>
           </div>

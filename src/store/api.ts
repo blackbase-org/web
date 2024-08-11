@@ -1,5 +1,6 @@
 import axios, { AxiosHeaders } from "axios";
 // import { getCookie, setCookie } from 'typescript-cookie'
+import { useRouter } from "next/navigation";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -8,7 +9,7 @@ axios.defaults.withCredentials = true;
 export const useApi = () => {
   const router = useRouter();
   const api = axios.create({
-    baseURL:'https://blackbase-api.optico.dev',
+    baseURL:'https://blackbase-api.optico.dev/clients',
     // baseURL: '/'
   });
 
@@ -19,7 +20,7 @@ export const useApi = () => {
       console.log('status code', error?.response?.status);
       console.log(error?.response?.data.message);
       if (error.response?.status === 401) {
-        router.push("auth/login");
+        router.push("/auth/login");
       } 
       return Promise.reject(error);
     }

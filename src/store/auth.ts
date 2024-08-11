@@ -15,7 +15,7 @@ export const useAuth = () => {
       credentials,
       false
     );
-    console.log("data", data);
+    // console.log("data", data);
     return data;
   };
 
@@ -58,6 +58,25 @@ export const useAuth = () => {
     }
   };
 
+  const verifyEmail = async (username: string) => {
+    try {
+      const { data } = await $post("account/send_code_via_email/", { username }, false);
+      return data;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+
+  const verifyCode = async (credentials: {type: string, code: string}) => {
+    try {
+        const { type, code } = credentials
+      const { data } = await $post("account/validate_code_via_email/", { type, code }, false);
+      return data;
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  }
+
   const resetToken = async () => {};
 
   const setProfile = (profile: any) => {
@@ -74,50 +93,46 @@ export const useAuth = () => {
     console.log('upload document data', data);
     if (!data) return;
     if (data.res == "Success") {
-      const {
-        pic,
-        username,
-        name,
-        qr_image,
-        cash,
-        number,
-        card_status,
-        card_qr,
-        notifications_count,
-        bonus,
-        required_document,
-        required_documents_status,
-        title,
-        res,
-      } = data;
-      if (res.toLowerCase() === "Success".toLowerCase()) {
-        // setTokens(tokens.access, tokens.refresh)
-        setProfile({
-          username,
-          name,
-          avatar: pic
-            ? pic.includes("//")
-              ? pic
-              : "http://127.0.0.1:8000" + pic
-            : null,
-          qr_image,
-          cash,
-          number,
-          card_status,
-          card_qr,
-          notifications_count,
-          bonus,
-          required_document,
-          required_documents_status,
-          title
-        });
-      }
+    //   const {
+    //     pic,
+    //     username,
+    //     name,
+    //     qr_image,
+    //     cash,
+    //     number,
+    //     card_status,
+    //     card_qr,
+    //     notifications_count,
+    //     bonus,
+    //     required_document,
+    //     required_documents_status,
+    //     title,
+    //     res,
+    //   } = data;
+    //   if (res.toLowerCase() === "Success".toLowerCase()) {
+    //     // setTokens(tokens.access, tokens.refresh)
+    //     setProfile({
+    //       username,
+    //       name,
+    //       avatar: pic
+    //         ? pic.includes("//")
+    //           ? pic
+    //           : "http://127.0.0.1:8000" + pic
+    //         : null,
+    //       qr_image,
+    //       cash,
+    //       number,
+    //       card_status,
+    //       card_qr,
+    //       notifications_count,
+    //       bonus,
+    //       required_document,
+    //       required_documents_status,
+    //       title
+    //     });
+    //   }
     }
-    return {
-      isAuth: data.res === "Success",
-      message: data.message,
-      remaining_trials: data.remaining_trials,
-    };
+    return true
   };
 
   const logout = async (account_type: any) => {
@@ -130,15 +145,13 @@ export const useAuth = () => {
 
   const register = async (credentials: any) => {
     const data = await $post("account/signup/", credentials, false);
-    console.log(data);
+    // console.log(data);
     if (!data) return;
-    if (data.res !== "Success") return;
-    const { tokens, required_document, required_documents_status } = data;
-    if (tokens) {
-      console.log(tokens);
-      setTokens(tokens.access, tokens.refresh);
-    }
-    return { required_document, required_documents_status };
+    return data.res == "Success";
+    // if (tokens) {
+    //   console.log(tokens);
+    //   setTokens(tokens.access, tokens.refresh);
+    // }
   };
 
 
@@ -183,5 +196,7 @@ export const useAuth = () => {
     getProfile,
     logout,
     changePhone,
+    verifyEmail,
+    verifyCode,
   };
 };
