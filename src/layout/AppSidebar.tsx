@@ -70,8 +70,9 @@ const AppSidebar = (props: { sidebarRef: React.RefObject<HTMLDivElement> }) => {
                             <img src={`/layout/images/logo/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="Logo" />
                         </div>
                         <div className="app-logo-normal">
-                            <img className="h-2rem" src={`/layout/images/logo/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
-                            <img className="h-2rem ml-3" src={`/layout/images/logo/appname-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="App Name Logo" />
+                            {/* <img className="h-2rem" src={`/layout/images/logo/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="logo" />
+                            <img className="h-2rem ml-3" src={`/layout/images/logo/appname-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} alt="App Name Logo" /> */}
+                            <h3 className='text-primary'>BlackBase</h3>
                         </div>
                     </Link>
                     <button className="layout-sidebar-anchor p-link z-2" type="button" onClick={anchor}></button>

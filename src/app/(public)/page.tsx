@@ -88,18 +88,13 @@ const LandingPage: Page = () => {
               className="cursor-pointer layout-topbar-logo flex align-items-center"
               onClick={goHome}
             >
-              <img
+              {/* <img
                 src="/layout/images/logo/logo-dark.png"
                 alt="layout"
                 className="logo"
                 style={{ height: "32px" }}
-              />
-              <img
-                src="/layout/images/logo/appname-dark.png"
-                alt="layout"
-                className="appname ml-2"
-                style={{ height: "12px" }}
-              />
+              /> */}
+             <h2>BlackBase</h2>
             </div>
 
             <ul
@@ -156,7 +151,7 @@ const LandingPage: Page = () => {
                     onClick={() => scrollToElement(meetRef)}
                     className="p-ripple flex m-0 lg:ml-5 lg:px-0 px-3 py-3 text-gray-800 font-medium line-height-3 hover:text-gray-800 cursor-pointer"
                   >
-                    <span>Meet Atlantis</span>
+                    <span>About</span>
                     <Ripple />
                   </a>
                 </StyleClass>
@@ -209,7 +204,7 @@ const LandingPage: Page = () => {
                     ref={buyRef}
                     className="p-ripple flex m-0 md:ml-5 md:px-0 px-3 py-3 text-gray-800 font-medium line-height-3 hover:text-gray-800 cursor-pointer"
                   >
-                    <span>Buy Now</span>
+                    <span>Parteners</span>
                     <Ripple />
                   </a>
                 </StyleClass>
@@ -253,11 +248,11 @@ const LandingPage: Page = () => {
             Modern, fresh and groovy
           </h2>
           <a
-            href="/"
+            onClick={goSignIn}
             className="p-button text-gray-700 bg-cyan-500 border-cyan-500 font-bold border-round"
             style={{ mixBlendMode: "multiply", padding: " 0.858rem 1.142rem" }}
           >
-            <span className="p-button-text">Live Demo</span>
+            <span className="p-button-text">Try BlackBase</span>
           </a>
         </div>
 

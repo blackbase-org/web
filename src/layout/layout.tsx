@@ -131,7 +131,7 @@ const Layout = (props: ChildContainerProps) => {
                 <div className="layout-mask"></div>
             </div>
             <AppProfileMenu />
-            <AppConfig />
+            {/* <AppConfig /> */}
 
             <Toast></Toast>
         </div>

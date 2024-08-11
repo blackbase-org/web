@@ -131,10 +131,10 @@ const AppTopbar = forwardRef((props: { sidebarRef: React.RefObject<HTMLDivElemen
                             </ul>
                         </li>
 
-                        <li className="right-panel-button relative hidden lg:block">
+                        {/* <li className="right-panel-button relative hidden lg:block">
                             <Button type="button" label="Today" style={{ width: '5.7rem' }} icon="pi pi-bookmark" className="layout-rightmenu-button md:block font-normal" onClick={showSidebar}></Button>
                             <Button type="button" icon="pi pi-bookmark" className="layout-rightmenu-button block md:hidden font-normal" onClick={showSidebar}></Button>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

@@ -58,7 +58,7 @@ const AppBreadcrumb = () => {
                             );
                         })
                     ) : (
-                        <li key={'home'}>E-Commerce Dashboard</li>
+                        <li key={'home'}>Home</li>
                     )}
                 </ol>
             </nav>
