@@ -8,16 +8,17 @@ import { InputNumber } from "primereact/inputnumber";
 import { LayoutContext } from "../../../../layout/context/layoutcontext";
 import { classNames } from "primereact/utils";
 import { useAuth } from "@/store/auth";
+import { InputText } from "primereact/inputtext";
 
 const Verification: Page = () => {
   const { layoutConfig } = useContext(LayoutContext);
   const router = useRouter();
   const { verifyCode } = useAuth();
 
-  const [value1, setValue1] = useState(null);
-  const [value2, setValue2] = useState(null);
-  const [value3, setValue3] = useState(null);
-  const [value4, setValue4] = useState(null);
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
+  const [value4, setValue4] = useState("");
   const [verify, setVerify] = useState(false);
 
   const goHome = () => {
@@ -25,16 +26,16 @@ const Verification: Page = () => {
   };
 
   const onVerifyCode = async () => {
-    const code = `${value1.value}${value2.value}${value3.value}${value4.value}`;
+    const code = `${value1}${value2}${value3}${value4}`;
     console.log("verify code", code);
     // call api to verify code
     const verified = await verifyCode({ type: "signup", code });
     // if code is verified, navigate to dashboard
     if (verified) router.push("/dashboard");
-    // else 
+    // else
   };
 
-  const focus = (event) => {
+  const focus = (event: any) => {
     const regexNum = /^\d+$/;
     const isValid = regexNum.test(event.key);
     const nextElementInputRef =
@@ -74,55 +75,52 @@ const Verification: Page = () => {
         >
           <div className="flex flex-column">
             <div className="flex align-items-center mb-6 logo-container">
-              {/* <img src={`/layout/images/logo/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-logo" style={{ width: '45px' }} alt="logo" />
-                            <img src={`/layout/images/logo/appname-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-appname ml-3" style={{ width: '100px' }} alt="appname" />
-                             */}
-              <h3>BlackBase</h3>
-            </div>
-            <div
-              className="form-container text-left"
-              style={{ maxWidth: "320px", minWidth: "270px" }}
-            >
-              <h4 className="text-900 font-bold mb-2">Verification</h4>
-              <span className="text-600 font-medium">
-                We have sent code to your email:
-              </span>
-              <div className="flex align-items-center mt-1 mb-4">
-                <i className="pi pi-envelope text-600"></i>
-                <span className="text-900 font-bold ml-2">dm**@gmail.com</span>
+              <div className="flex align-items-center mb-6 logo-container">
+                <h3>BlackBase</h3>
               </div>
-              <div className="flex justify-content-between w-full align-items-center gap-3">
-                <InputNumber
-                  inputId="val1"
-                  value={value1}
-                  onInput={(e) => setValue1(e.target)}
-                  inputClassName="w-3rem text-center"
-                  max={9}
-                  onKeyUp={focus}
-                />
-                <InputNumber
-                  inputId="val2"
-                  value={value2}
-                  onInput={(e) => setValue2(e.target)}
-                  inputClassName="w-3rem text-center"
-                  max={9}
-                  onKeyUp={focus}
-                />
-                <InputNumber
-                  inputId="val3"
-                  value={value3}
-                  onInput={(e) => setValue3(e.target)}
-                  inputClassName="w-3rem text-center"
-                  max={9}
-                  onKeyUp={focus}
-                />
-                <InputNumber
-                  inputId="val4"
-                  value={value4}
-                  onInput={(e) => setValue4(e.target)}
-                  inputClassName="w-3rem text-center"
-                  max={9}
-                />
+              <div
+                className="form-container text-left"
+                style={{ maxWidth: "320px", minWidth: "270px" }}
+              >
+                <h4 className="text-900 font-bold mb-2">Verification</h4>
+                <span className="text-600 font-medium">
+                  We have sent code to your email:
+                </span>
+                <div className="flex align-items-center mt-1 mb-4">
+                  <i className="pi pi-envelope text-600"></i>
+                  <span className="text-900 font-bold ml-2">
+                    dm**@gmail.com
+                  </span>
+                </div>
+                <div className="flex justify-content-between w-full align-items-center gap-3">
+                  <InputText
+                    id="val1"
+                    onChange={(e) => setValue1(e.target.value)}
+                    className="w-3rem text-center"
+                    maxLength={1}
+                    onKeyUp={focus}
+                  />
+                  <InputText
+                    id="val2"
+                    onChange={(e) => setValue2(e.target.value)}
+                    className="w-3rem text-center"
+                    maxLength={1}
+                    onKeyUp={focus}
+                  />
+                  <InputText
+                    id="val3"
+                    onChange={(e) => setValue3(e.target.value)}
+                    className="w-3rem text-center"
+                    maxLength={1}
+                    onKeyUp={focus}
+                  />
+                  <InputText
+                    id="val4"
+                    onChange={(e) => setValue4(e.target.value)}
+                    className="w-3rem text-center"
+                    maxLength={1}
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -153,8 +151,6 @@ const Verification: Page = () => {
             style={{ bottom: "75px" }}
           >
             <div className="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
-              {/* <img src="/layout/images/logo/logo-gray.png" className="login-footer-logo" style={{ width: '22px' }} alt="logo" />
-                            <img src="/layout/images/logo/appname-gray.png" className="login-footer-appname ml-2" style={{ width: '45px' }} alt="appname" /> */}
               <h5>BlackBase</h5>
             </div>
             <span className="text-sm text-color-secondary mr-3">

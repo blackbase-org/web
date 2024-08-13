@@ -38,6 +38,7 @@ const AppConfig = (props: AppConfigProps) => {
     };
 
     const changeRipple = (e: InputSwitchChangeEvent) => {
+        if (!setRipple) return;
         setRipple(e.value);
         setLayoutConfig((prevState) => ({ ...prevState, ripple: e.value }));
     };
@@ -47,12 +48,14 @@ const AppConfig = (props: AppConfigProps) => {
     };
 
     const changeColorScheme = (colorScheme: ColorScheme) => {
+        if(!changeTheme) return;
         changeTheme(layoutConfig.colorScheme, colorScheme, 'theme-link', () => {
             setLayoutConfig((prevState) => ({ ...prevState, colorScheme }));
         });
     };
 
     const _changeTheme = (theme: string) => {
+        if(!changeTheme) return;
         changeTheme(layoutConfig.theme, theme, 'theme-link', () => {
             setLayoutConfig((prevState) => ({ ...prevState, theme }));
         });

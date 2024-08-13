@@ -56,7 +56,7 @@ const AppProfileSidebar = () => {
                     </div>
                 </div>
                 <div>
-                    <Calendar value={date} inline className="w-full p-0" onChange={(e) => setDate(e.value)} />
+                    <Calendar value={date} inline className="w-full p-0" onChange={(e) => setDate(e.value as any)} />
                 </div>
                 <div className="daily-plan-wrapper mt-5">
                     <span className="today-date">14 Sunday, Jun 2020</span>

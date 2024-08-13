@@ -6,7 +6,7 @@ import { useContext, useEffect } from 'react';
 import { LayoutContext } from '../context/layoutcontext';
 import { MenuContext } from '../context/menucontext';
 
-export const useSubmenuOverlayPosition = ({ target, overlay, container, when }) => {
+export const useSubmenuOverlayPosition = ({ target, overlay, container, when }: any) => {
     const { isSlim, isSlimPlus, isHorizontal, setLayoutState, layoutState } = useContext(LayoutContext);
     const { activeMenu } = useContext(MenuContext);
     const [bindScrollListener, unbindScrollListener] = useEventListener({

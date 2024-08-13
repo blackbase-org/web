@@ -16,7 +16,7 @@ const AppBreadcrumb = () => {
     const searchInput = useRef(null);
 
     useEffect(() => {
-        const filteredBreadcrumbs = breadcrumbs?.find((crumb) => {
+        const filteredBreadcrumbs: any = breadcrumbs?.find((crumb: any) => {
             const lastPathSegment = crumb.to.split('/').pop();
             const lastRouterSegment = pathname.split('/').pop();
 
@@ -32,7 +32,7 @@ const AppBreadcrumb = () => {
     const activateSearch = () => {
         setSearchActive(true);
         setTimeout(() => {
-            searchInput.current.focus();
+            // searchInput?.current?.focus();
         }, 100);
     };
 
@@ -49,7 +49,7 @@ const AppBreadcrumb = () => {
             <nav className="layout-breadcrumb">
                 <ol>
                     {ObjectUtils.isNotEmpty(breadcrumb) && pathname !== '/' ? (
-                        breadcrumb.labels.map((label, index) => {
+                        breadcrumb?.labels?.map((label, index) => {
                             return (
                                 <React.Fragment key={index}>
                                     {index !== 0 && <li className="layout-breadcrumb-chevron"> / </li>}

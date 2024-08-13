@@ -16,8 +16,8 @@ const AppMenuitem = (props: AppMenuItemProps) => {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const submenuRef = useRef(null);
-    const menuitemRef = useRef(null);
-    const item = props.item;
+    const menuitemRef = useRef<any>(null);
+    const item: any = props.item;
     const key = props.parentKey ? props.parentKey + '-' + props.index : String(props.index);
     const isActiveRoute = item.to && pathname === item.to;
     const active = activeMenu === key || !!(activeMenu && activeMenu.startsWith(key + '-'));
@@ -49,7 +49,7 @@ const AppMenuitem = (props: AppMenuItemProps) => {
     useEffect(() => {
         const url = pathname + searchParams.toString();
 
-        const onRouteChange = (url) => {
+        const onRouteChange = (url: any) => {
             if (!(isSlim() || isHorizontal() || isSlimPlus()) && item.to && item.to === url) {
                 setActiveMenu(key);
             }
@@ -86,7 +86,7 @@ const AppMenuitem = (props: AppMenuItemProps) => {
 
         // toggle active state
         if (item.items) {
-            setActiveMenu(active ? props.parentKey : key);
+            setActiveMenu(active ? props.parentKey as string : key);
 
             if (props.root && !active && (isSlim() || isHorizontal() || isSlimPlus())) {
                 setLayoutState((prevLayoutState) => ({
@@ -125,7 +125,7 @@ const AppMenuitem = (props: AppMenuItemProps) => {
     const subMenu =
         item.items && item.visible !== false ? (
             <ul ref={submenuRef}>
-                {item.items.map((child, i) => {
+                {item.items.map((child: any, i: number) => {
                     return <AppMenuitem item={child} index={i} className={child.badgeClass} parentKey={key} key={child.label} />;
                 })}
             </ul>

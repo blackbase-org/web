@@ -31,7 +31,7 @@ const AppSidebar = (props: { sidebarRef: React.RefObject<HTMLDivElement> }) => {
         }
     };
 
-    let timeout = null;
+    let timeout: any = null;
 
     const onMouseEnter = () => {
         if (!layoutState.anchored) {

@@ -16,15 +16,15 @@ import AppProfileMenu from './AppProfileMenu';
 const Layout = (props: ChildContainerProps) => {
     const { layoutConfig, layoutState, setLayoutState, isSlim, isSlimPlus, isHorizontal, isDesktop } = useContext(LayoutContext);
     const { setRipple } = useContext(PrimeReactContext);
-    const topbarRef = useRef(null);
-    const sidebarRef = useRef(null);
-    const copyTooltipRef = useRef(null);
+    const topbarRef = useRef<any>(null);
+    const sidebarRef = useRef<any>(null);
+    const copyTooltipRef = useRef<any>(null);
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [bindMenuOutsideClickListener, unbindMenuOutsideClickListener] = useEventListener({
         type: 'click',
         listener: (event) => {
-            const isOutsideClicked = !(sidebarRef.current.isSameNode(event.target) || sidebarRef.current.contains(event.target) || topbarRef.current.menubutton.isSameNode(event.target) || topbarRef.current.menubutton.contains(event.target));
+            const isOutsideClicked = !(sidebarRef.current?.isSameNode(event.target) || sidebarRef.current.contains(event.target) || topbarRef.current.menubutton.isSameNode(event.target) || topbarRef.current.menubutton.contains(event.target));
 
             if (isOutsideClicked) {
                 hideMenu();
@@ -68,6 +68,7 @@ const Layout = (props: ChildContainerProps) => {
         }
     };
     useMountEffect(() => {
+        if (!setRipple) return;
         setRipple(layoutConfig.ripple);
     });
 
