@@ -78,8 +78,9 @@ const LandingPage: Page = () => {
         className="landing-header flex flex-column w-full p-6"
         style={{
           minHeight: "1000px",
-          background: `url('/layout/images/landing/landing-header-2x.jpg') top left no-repeat`,
+          background: `url('/layout/images/landing/bg3.webp') left no-repeat`,
           backgroundSize: "cover",
+          zIndex: 0,
         }}
       >
         <div className="header-menu-container flex align-items-center justify-content-between">
@@ -88,13 +89,13 @@ const LandingPage: Page = () => {
               className="cursor-pointer layout-topbar-logo flex align-items-center"
               onClick={goHome}
             >
-              {/* <img
-                src="/layout/images/logo/logo-dark.png"
+              <img
+                src="/layout/images/logo/logo.png"
                 alt="layout"
                 className="logo"
-                style={{ height: "32px" }}
-              /> */}
-             <h2>BlackBase</h2>
+                style={{ height: "64px" }}
+              />
+             <h2>lackBase</h2>
             </div>
 
             <ul
@@ -238,14 +239,15 @@ const LandingPage: Page = () => {
         </div>
 
         <div className="header-text" style={{ padding: "100px 60px" }}>
+        {/* <span className="text-xl">Welcome on </span> 
           <h1
             className="mb-0 text-gray-800"
             style={{ fontSize: "80px", lineHeight: "95px" }}
           >
-            This is Atlantis
-          </h1>
+            BlackBase
+          </h1> */}
           <h2 className="mt-0 font-medium text-4xl text-gray-700">
-            Modern, fresh and groovy
+            Fast, Light and secured!
           </h2>
           <a
             onClick={goSignIn}
