@@ -5,6 +5,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY . .
 RUN  npm ci
 
 RUN npm run build
