@@ -26,38 +26,39 @@ const Register: Page = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [referer_id, setReferer] = useState("");
+  const [step, setStep] = useState(1);
 
   const { layoutConfig } = useContext(LayoutContext);
   const router = useRouter();
   const { register, verifyEmail } = useAuth();
-//   const taost = useToast();
+  //   const taost = useToast();
 
   const goToLogin = () => {
     router.push("/auth/login");
   };
 
-  const onSignUp = async() => {
+  const onSignUp = async () => {
     console.log("Sign Up");
 
     // call api to register
     const res = await register({
-        first_name,
-        last_name,
-        username,
-        password,
-        phone,
-        email,
-        birth,
-        referer_id
-    })
+      first_name,
+      last_name,
+      username,
+      password,
+      phone,
+      email,
+      birth,
+      referer_id,
+    });
 
     console.log("register", res);
     // if register is successful, navigate to dashboard
-   if (res){
-    verifyEmail(username);
-    router.push("/auth/verification");
-   } 
-//    else 
+    if (res) {
+      verifyEmail(username);
+      router.push("/auth/verification");
+    }
+    //    else
   };
 
   const checkUsername = (e: any) => {
@@ -101,6 +102,15 @@ const Register: Page = () => {
     // if referer is not found, show error message
     setUsernameError("Referer not found");
   };
+
+  const prevStep = () => {
+    if (step === 1) goToLogin();
+    setStep(step - 1);
+  }
+  const nextStep = () => {
+    if (step === 3) onSignUp();
+    setStep(step + 1);
+  }
 
   return (
     <>
@@ -157,124 +167,146 @@ const Register: Page = () => {
                 style={{ maxWidth: "320px", minWidth: "270px" }}
               >
                 <h4 className="m-0 mb-2">Register</h4>
-                <span className="block text-600 font-medium mb-4">
-                  Let&lsquo;s get started
-                </span>
-                <span className="p-input-icon-left">
-                  <i className="pi pi-user"></i>
-                  <InputText
-                    type="text"
-                    autoComplete="off"
-                    placeholder="firstname"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={(e) => setFirstname(e.target.value)}
-                  />
-                </span>
-                <span className="p-input-icon-left">
-                  <i className="pi pi-user"></i>
-                  <InputText
-                    type="text"
-                    autoComplete="off"
-                    placeholder="lastname"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={(e) => setLastname(e.target.value)}
-                  />
-                </span>
-                <span className="p-input-icon-left">
-                  <i className="pi pi-calendar"></i>
-                  <InputText
-                    type="date"
-                    autoComplete="off"
-                    placeholder="birth"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={(e) => setBirth(e.target.value)}
-                  />
-                </span>
-                <div className="space-y-1">
-                  <span className="p-input-icon-left">
-                    <i className="pi pi-user"></i>
-                    <InputText
-                      type="text"
-                      autoComplete="off"
-                      placeholder="username"
-                      className="block mb-3"
-                      style={{ maxWidth: "320px", minWidth: "270px" }}
-                      onChange={checkUsername}
-                    />
-                  </span>
-                  {usernameError && (
-                    <div className="mb-2">
-                      <small className="text-red-500 ">{usernameError}</small>
-                    </div>
-                  )}
-                </div>
 
-                <span className="p-input-icon-left">
-                  <i className="pi pi-phone"></i>
-                  <InputText
-                    type="tel"
-                    autoComplete="off"
-                    placeholder="phone"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </span>
-                <span className="p-input-icon-left">
-                  <i className="pi pi-envelope"></i>
-                  <InputText
-                    type="email"
-                    autoComplete="off"
-                    placeholder="email"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </span>
-                <div>
-                  <span className="p-input-icon-left">
-                    <i className="pi pi-key"></i>
-                    <InputText
-                      type="password"
-                      autoComplete="off"
-                      placeholder="Password"
-                      className="block mb-3"
-                      style={{ maxWidth: "320px", minWidth: "270px" }}
-                      onChange={checkPassword}
-                    />
-                  </span>
-                  {passwordError && (
-                    <div className="mb-2">
-                      <small className="text-red-500 ">{passwordError}</small>
+                {step === 1 && (
+                  <div>
+                    <span className="block text-600 font-medium mb-4">
+                      Let&lsquo;s get started
+                    </span>
+                    <span className="p-input-icon-left">
+                      <i className="pi pi-user"></i>
+                      <InputText
+                        type="text"
+                        autoComplete="off"
+                        placeholder="firstname"
+                        className="block mb-3"
+                        style={{ maxWidth: "320px", minWidth: "270px" }}
+                        onChange={(e) => setFirstname(e.target.value)}
+                      />
+                    </span>
+                    <span className="p-input-icon-left">
+                      <i className="pi pi-user"></i>
+                      <InputText
+                        type="text"
+                        autoComplete="off"
+                        placeholder="lastname"
+                        className="block mb-3"
+                        style={{ maxWidth: "320px", minWidth: "270px" }}
+                        onChange={(e) => setLastname(e.target.value)}
+                      />
+                    </span>
+                    <span className="p-input-icon-left">
+                      <i className="pi pi-calendar"></i>
+                      <InputText
+                        type="date"
+                        autoComplete="off"
+                        placeholder="birth"
+                        className="block mb-3"
+                        style={{ maxWidth: "320px", minWidth: "270px" }}
+                        onChange={(e) => setBirth(e.target.value)}
+                      />
+                    </span>
+                    <div className="space-y-1">
+                      <span className="p-input-icon-left">
+                        <i className="pi pi-user"></i>
+                        <InputText
+                          type="text"
+                          autoComplete="off"
+                          placeholder="username"
+                          className="block mb-3"
+                          style={{ maxWidth: "320px", minWidth: "270px" }}
+                          onChange={checkUsername}
+                        />
+                      </span>
+                      {usernameError && (
+                        <div className="mb-2">
+                          <small className="text-red-500 ">
+                            {usernameError}
+                          </small>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                <div>
-                  <span className="p-input-icon-left">
-                    <i className="pi pi-key"></i>
-                    <InputText
-                      type="password"
-                      autoComplete="off"
-                      placeholder="Confirm Password"
-                      className="block mb-3"
-                      style={{ maxWidth: "320px", minWidth: "270px" }}
-                      onChange={confirmPassword}
-                    />
-                  </span>
-                  {confirmPasswordError && (
-                    <div className="mb-2">
-                      <small className="text-red-500 ">
-                        {confirmPasswordError}
-                      </small>
+                    <span className="p-input-icon-left">
+                      <i className="pi pi-phone"></i>
+                      <InputText
+                        type="tel"
+                        autoComplete="off"
+                        placeholder="phone"
+                        className="block mb-3"
+                        style={{ maxWidth: "320px", minWidth: "270px" }}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                    </span>
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div>
+                     <span className="block text-600 font-medium mb-4">
+                      Add your credentials
+                    </span>
+                    <span className="p-input-icon-left">
+                      <i className="pi pi-envelope"></i>
+                      <InputText
+                        type="email"
+                        autoComplete="off"
+                        placeholder="email"
+                        className="block mb-3"
+                        style={{ maxWidth: "320px", minWidth: "270px" }}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </span>
+                    <div>
+                      <span className="p-input-icon-left">
+                        <i className="pi pi-key"></i>
+                        <InputText
+                          type="password"
+                          autoComplete="off"
+                          placeholder="Password"
+                          className="block mb-3"
+                          style={{ maxWidth: "320px", minWidth: "270px" }}
+                          onChange={checkPassword}
+                        />
+                      </span>
+                      {passwordError && (
+                        <div className="mb-2">
+                          <small className="text-red-500 ">
+                            {passwordError}
+                          </small>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                <span className="p-input-icon-left">
+                    <div>
+                      <span className="p-input-icon-left">
+                        <i className="pi pi-key"></i>
+                        <InputText
+                          type="password"
+                          autoComplete="off"
+                          placeholder="Confirm Password"
+                          className="block mb-3"
+                          style={{ maxWidth: "320px", minWidth: "270px" }}
+                          onChange={confirmPassword}
+                        />
+                      </span>
+                      {confirmPasswordError && (
+                        <div className="mb-2">
+                          <small className="text-red-500 ">
+                            {confirmPasswordError}
+                          </small>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div>
+                     <span className="block text-600 font-medium mb-4">
+                      Add your referer
+                    </span>
+                     <span className="p-input-icon-left">
                   <i className="pi pi-user"></i>
                   <InputText
                     type="text"
@@ -302,7 +334,10 @@ const Register: Page = () => {
                   <a className="text-600 cursor-pointer hover:text-primary cursor-pointer">
                     Terms and Conditions
                   </a>
+                  </div>
+    )}
                 </div>
+                )}
               </div>
               <div
                 className="button-container mt-4 text-left"
@@ -311,30 +346,19 @@ const Register: Page = () => {
                 <div className="buttons flex align-items-center gap-3">
                   <Button
                     type="button"
-                    onClick={goToLogin}
+                    onClick={prevStep}
                     className="block p-button-danger p-button-outlined"
                     style={{ maxWidth: "320px", marginBottom: "32px" }}
                   >
-                    Cancel
+                   {step === 1 ? "Cancel" : "Back"}
                   </Button>
                   <Button
                     type="button"
                     className="block"
                     style={{ maxWidth: "320px", marginBottom: "32px" }}
-                    disabled={
-                      !confirmed ||
-                      !username ||
-                      !password ||
-                      !email ||
-                      !phone ||
-                      !first_name ||
-                      !last_name ||
-                      !referer_id ||
-                      !birth
-                    }
-                    onClick={onSignUp}
+                    onClick={nextStep}
                   >
-                    Submit
+                    {step === 3 ? "Sign Up" : "Next"}
                   </Button>
                 </div>
                 <span className="font-medium text-600">
@@ -362,7 +386,6 @@ const Register: Page = () => {
                   style={{ width: "45px" }}
                   alt="appname"
                 /> */}
-
                 BlackBase
               </div>
               <span className="text-sm text-color-secondary mr-3">

@@ -10,166 +10,105 @@ const AppMenu = () => {
                 {
                     label: 'Home',
                     icon: 'pi pi-fw pi-home',
-                    to: '/'
+                    to: '/dashboard'
                 }
             ]
         },
-        // { separator: true },
-        // {
-        //     label: 'Apps',
-        //     icon: 'pi pi-th-large',
-        //     items: [
-        //         {
-        //             label: 'Blog',
-        //             icon: 'pi pi-fw pi-comment',
-        //             items: [
-        //                 {
-        //                     label: 'List',
-        //                     icon: 'pi pi-fw pi-image',
-        //                     to: '/apps/blog/list'
-        //                 },
-        //                 {
-        //                     label: 'Detail',
-        //                     icon: 'pi pi-fw pi-list',
-        //                     to: '/apps/blog/detail'
-        //                 },
-        //                 {
-        //                     label: 'Edit',
-        //                     icon: 'pi pi-fw pi-pencil',
-        //                     to: '/apps/blog/edit'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             label: 'Calendar',
-        //             icon: 'pi pi-fw pi-calendar',
-        //             to: '/apps/calendar'
-        //         },
-        //         {
-        //             label: 'Chat',
-        //             icon: 'pi pi-fw pi-comments',
-        //             to: '/apps/chat'
-        //         },
-        //         {
-        //             label: 'Files',
-        //             icon: 'pi pi-fw pi-folder',
-        //             to: '/apps/files'
-        //         },
-        //         {
-        //             label: 'Mail',
-        //             icon: 'pi pi-fw pi-envelope',
-        //             items: [
-        //                 {
-        //                     label: 'Inbox',
-        //                     icon: 'pi pi-fw pi-inbox',
-        //                     to: '/apps/mail/inbox'
-        //                 },
-        //                 {
-        //                     label: 'Compose',
-        //                     icon: 'pi pi-fw pi-pencil',
-        //                     to: '/apps/mail/compose'
-        //                 },
-        //                 {
-        //                     label: 'Detail',
-        //                     icon: 'pi pi-fw pi-comment',
-        //                     to: '/apps/mail/detail/1000'
-        //                 }
-        //             ]
-        //         },
-        //         {
-        //             label: 'Task List',
-        //             icon: 'pi pi-fw pi-check-square',
-        //             to: '/apps/tasklist'
-        //         }
-        //     ]
-        // },
-        // { separator: true },
-        // {
-        //     label: 'UI Kit',
-        //     icon: 'pi pi-fw pi-star-fill',
-        //     items: [
-        //         {
-        //             label: 'Form Layout',
-        //             icon: 'pi pi-fw pi-id-card',
-        //             to: '/uikit/formlayout'
-        //         },
-        //         {
-        //             label: 'Input',
-        //             icon: 'pi pi-fw pi-check-square',
-        //             to: '/uikit/input'
-        //         },
-        //         {
-        //             label: 'Float Label',
-        //             icon: 'pi pi-fw pi-bookmark',
-        //             to: '/uikit/floatlabel'
-        //         },
-        //         {
-        //             label: 'Invalid State',
-        //             icon: 'pi pi-fw pi-exclamation-circle',
-        //             to: '/uikit/invalidstate'
-        //         },
-        //         {
-        //             label: 'Button',
-        //             icon: 'pi pi-fw pi-box',
-        //             to: '/uikit/button'
-        //         },
-        //         {
-        //             label: 'Table',
-        //             icon: 'pi pi-fw pi-table',
-        //             to: '/uikit/table'
-        //         },
-        //         {
-        //             label: 'List',
-        //             icon: 'pi pi-fw pi-list',
-        //             to: '/uikit/list'
-        //         },
-        //         {
-        //             label: 'Tree',
-        //             icon: 'pi pi-fw pi-share-alt',
-        //             to: '/uikit/tree'
-        //         },
-        //         {
-        //             label: 'Panel',
-        //             icon: 'pi pi-fw pi-tablet',
-        //             to: '/uikit/panel'
-        //         },
-        //         {
-        //             label: 'Overlay',
-        //             icon: 'pi pi-fw pi-clone',
-        //             to: '/uikit/overlay'
-        //         },
-        //         {
-        //             label: 'Media',
-        //             icon: 'pi pi-fw pi-image',
-        //             to: '/uikit/media'
-        //         },
-        //         {
-        //             label: 'Menu',
-        //             icon: 'pi pi-fw pi-bars',
-        //             to: '/uikit/menu'
-        //         },
-        //         {
-        //             label: 'Message',
-        //             icon: 'pi pi-fw pi-comment',
-        //             to: '/uikit/message'
-        //         },
-        //         {
-        //             label: 'File',
-        //             icon: 'pi pi-fw pi-file',
-        //             to: '/uikit/file'
-        //         },
-        //         {
-        //             label: 'Chart',
-        //             icon: 'pi pi-fw pi-chart-bar',
-        //             to: '/uikit/charts'
-        //         },
-        //         {
-        //             label: 'Misc',
-        //             icon: 'pi pi-fw pi-circle-off',
-        //             to: '/uikit/misc'
-        //         }
-        //     ]
-        // },
+        { separator: true },
+        {
+            label: 'Hosting',
+            icon: 'pi pi-th-large',
+            items: [
+                {
+                    label: 'Web Hosting',
+                    icon: 'pi pi-fw pi-comment',
+                    items: [
+                        {
+                            label: 'Files',
+                            icon: 'pi pi-fw pi-image',
+                            to: '/apps/blog/list'
+                        },
+                        {
+                            label: 'Emails',
+                            icon: 'pi pi-fw pi-list',
+                            to: '/apps/blog/detail'
+                        },
+                        {
+                            label: 'Applications',
+                            icon: 'pi pi-fw pi-image',
+                            to: '/apps/blog/list'
+                        },
+                        {
+                            label: 'Databases',
+                            icon: 'pi pi-fw pi-list',
+                            to: '/apps/blog/detail'
+                        },
+                        {
+                            label: 'Upgrade Plan',
+                            icon: 'pi pi-fw pi-pencil',
+                            to: '/hosting/upgrade-plan'
+                        }
+                    ]
+                },
+                {
+                    label: 'Mail Relay',
+                    icon: 'pi pi-fw pi-calendar',
+                    to: '/apps/calendar'
+                }
+            ]
+                
+        },
+        { separator: true },
+        {
+            label: 'Services',
+            icon: 'pi pi-fw pi-star-fill',
+            items: [
+                {
+                    label: 'Authentication',
+                    icon: 'pi pi-fw pi-id-card',
+                    to: '/uikit/formlayout'
+                },
+                {
+                    label: 'Messaging',
+                    icon: 'pi pi-fw pi-comment',
+                    to: '/uikit/input',
+                    items: [
+                        {
+                            label: 'Whatsapp',
+                            icon: 'pi pi-fw pi-bars',
+                            to: '/uikit/inputtext'
+                        },
+                        {
+                            label: 'Email',
+                            icon: 'pi pi-fw pi-search',
+                            to: '/uikit/textarea'
+                        },
+                        {
+                            label: 'SMS',
+                            icon: 'pi pi-fw pi-calendar',
+                            to: '/uikit/calendar'
+                        },
+                        {
+                            label: 'Push Notifications',
+                            icon: 'pi pi-fw pi-file',
+                            to: '/uikit/fileupload'
+                        }
+
+                    ]
+                },
+                {
+                    label: 'Geolocation',
+                    icon: 'pi pi-fw pi-map',
+                    to: '/uikit/floatlabel'
+                },
+                {
+                    label: 'Storage',
+                    icon: 'pi pi-fw pi-chart-bar',
+                    to: '/uikit/fieldset'
+                }
+               
+            ]
+        },
         // { separator: true },
         // {
         //     label: 'Prime Blocks',

@@ -26,7 +26,7 @@ const Verification: Page = () => {
   };
 
   const onVerifyCode = async () => {
-    const code = `${value1}${value2}${value3}${value4}`;
+    const code = `${value1}`;
     console.log("verify code", code);
     // call api to verify code
     const verified = await verifyCode({ type: "signup", code });
@@ -75,9 +75,11 @@ const Verification: Page = () => {
         >
           <div className="flex flex-column">
             <div className="flex align-items-center mb-6 logo-container">
-              <div className="flex align-items-center mb-6 logo-container">
-                <h3>BlackBase</h3>
-              </div>
+              {/* <img src={`/layout/images/logo/logo-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-logo" style={{ width: '45px' }} alt="logo" /> */}
+              {/* <img src={`/layout/images/logo/appname-${layoutConfig.colorScheme === 'light' ? 'dark' : 'light'}.png`} className="login-appname ml-3" style={{ width: '100px' }} alt="appname" /> */}
+              <h3>BlackBase</h3>
+            </div>
+            <div>
               <div
                 className="form-container text-left"
                 style={{ maxWidth: "320px", minWidth: "270px" }}
@@ -96,11 +98,11 @@ const Verification: Page = () => {
                   <InputText
                     id="val1"
                     onChange={(e) => setValue1(e.target.value)}
-                    className="w-3rem text-center"
+                    className="w-12rem text-center"
                     maxLength={1}
                     onKeyUp={focus}
                   />
-                  <InputText
+                  {/* <InputText
                     id="val2"
                     onChange={(e) => setValue2(e.target.value)}
                     className="w-3rem text-center"
@@ -119,7 +121,7 @@ const Verification: Page = () => {
                     onChange={(e) => setValue4(e.target.value)}
                     className="w-3rem text-center"
                     maxLength={1}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
