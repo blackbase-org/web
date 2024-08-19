@@ -105,18 +105,18 @@ const Register: Page = () => {
     // Api call
     const referer = await verifyAccount({ username: e.target.value });
     // if referer is not found, show error message
-    if (!referer) return  setRefererError("Referer not found");
+    if (!referer) return setRefererError("Referer not found");
     setReferer(referer);
   };
 
   const prevStep = () => {
     if (step === 1) return goToLogin();
     setStep(step - 1);
-  }
+  };
   const nextStep = () => {
-    if (step === 3)return  onSignUp();
+    if (step === 3) return onSignUp();
     setStep(step + 1);
-  }
+  };
 
   return (
     <>
@@ -249,7 +249,7 @@ const Register: Page = () => {
 
                 {step === 2 && (
                   <div>
-                     <span className="block text-600 font-medium mb-4">
+                    <span className="block text-600 font-medium mb-4">
                       Add your credentials
                     </span>
                     <span className="p-input-icon-left">
@@ -309,7 +309,7 @@ const Register: Page = () => {
 
                 {step === 3 && (
                   <div>
-                     <span className="block text-600 font-medium mb-4">
+                    <span className="block text-600 font-medium mb-4">
                       Add your referer
                     </span>
                     <div className="space-y-1">
@@ -324,7 +324,7 @@ const Register: Page = () => {
                           onChange={checkReferer}
                         />
                       </span>
-                      {(refererUsername && refererError) && (
+                      {refererUsername && refererError && (
                         <div className="mb-2">
                           <small className="text-red-500 ">
                             {refererError}
@@ -332,26 +332,25 @@ const Register: Page = () => {
                         </div>
                       )}
                     </div>
-                <div className="mt-2 flex flex-wrap">
-                  <Checkbox
-                    type="checkbox"
-                    id="confirmed"
-                    checked={confirmed}
-                    onChange={() => setConfirmed(!confirmed)}
-                    className="mr-2"
-                  />{" "}
-                  <label
-                    htmlFor="confirmed"
-                    className="text-900 font-medium mr-2"
-                  >
-                    I have read the
-                  </label>
-                  <a className="text-600 cursor-pointer hover:text-primary cursor-pointer">
-                    Terms and Conditions
-                  </a>
+                    <div className="mt-2 flex flex-wrap">
+                      <Checkbox
+                        type="checkbox"
+                        id="confirmed"
+                        checked={confirmed}
+                        onChange={() => setConfirmed(!confirmed)}
+                        className="mr-2"
+                      />{" "}
+                      <label
+                        htmlFor="confirmed"
+                        className="text-900 font-medium mr-2"
+                      >
+                        I have read the
+                      </label>
+                      <a className="text-600 cursor-pointer hover:text-primary cursor-pointer">
+                        Terms and Conditions
+                      </a>
+                    </div>
                   </div>
-    )}
-                </div>
                 )}
               </div>
               <div
@@ -365,7 +364,7 @@ const Register: Page = () => {
                     className="block p-button-danger p-button-outlined"
                     style={{ maxWidth: "320px", marginBottom: "32px" }}
                   >
-                   {step === 1 ? "Cancel" : "Back"}
+                    {step === 1 ? "Cancel" : "Back"}
                   </Button>
                   <Button
                     type="button"
@@ -378,7 +377,10 @@ const Register: Page = () => {
                 </div>
                 <span className="font-medium text-600">
                   Already have an account?{" "}
-                  <a onClick={goToLogin} className="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">
+                  <a
+                    onClick={goToLogin}
+                    className="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300"
+                  >
                     Login
                   </a>
                 </span>
