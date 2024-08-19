@@ -27,11 +27,10 @@ const Verification: Page = () => {
 
   const onVerifyCode = async () => {
     const code = `${value1}`;
-    console.log("verify code", code);
     // call api to verify code
-    const verified = await verifyCode({ type: "signup", code });
+    const res = await verifyCode({ type: "signup", code });
     // if code is verified, navigate to dashboard
-    if (verified) router.push("/dashboard");
+    if (res?.success) router.push("/dashboard");
     // else
   };
 
@@ -99,8 +98,8 @@ const Verification: Page = () => {
                     id="val1"
                     onChange={(e) => setValue1(e.target.value)}
                     className="w-12rem text-center"
-                    maxLength={1}
-                    onKeyUp={focus}
+                    maxLength={6}
+                    
                   />
                   {/* <InputText
                     id="val2"
@@ -141,7 +140,7 @@ const Verification: Page = () => {
                   onClick={onVerifyCode}
                   className="block"
                   style={{ maxWidth: "320px", marginBottom: "32px" }}
-                  disabled={!value1 || !value2 || !value3 || !value4}
+                  disabled={!value1 }
                 >
                   Verify
                 </Button>

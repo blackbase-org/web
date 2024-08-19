@@ -11,18 +11,18 @@ export const useOffer = () => {
     }
   };
 
-  const getOfferLimit = async () => {
+  const getOfferLimit = async (params: {package: string, sub_package: string}) => {
     try {
-      const { data } = await $get("offers/limit/");
+      const { data } = await $get(`/package_limit/action/?package=${params.package}&sub_package=${params.sub_package}`);
       return data;
     } catch (err: any) {
       return err?.response;
     }
   };
 
-  const joinWaitlist = async (email: string) => {
+  const joinWaitlist = async (params: {package: string, sub_package: string}) => {
     try {
-      const { data } = await $post("offers/waitlist/", { email });
+      const { data } = await $post("/waitlist/", params);
       return data;
     } catch (err: any) {
       return err?.response;
@@ -31,7 +31,7 @@ export const useOffer = () => {
 
   const getUserWaitingListInfos = async () => {
     try {
-      const { data } = await $get("offers/waitlist/");
+      const { data } = await $get("/waitlist/");
       return data;
     } catch (err: any) {
       return err?.response;

@@ -60,7 +60,7 @@ export const useAuth = () => {
 
   const verifyEmail = async (username: string) => {
     try {
-      const { data } = await $post("account/send_code_via_email/", { username }, false);
+      const { data } = await $post("account/action/send_code_via_email/", { username }, false);
       return data;
     } catch (err: any) {
       console.log(err.message);
@@ -70,8 +70,10 @@ export const useAuth = () => {
   const verifyCode = async (credentials: {type: string, code: string}) => {
     try {
         const { type, code } = credentials
-      const { data } = await $post("account/validate_code_via_email/", { type, code }, false);
-      return data;
+        console.log(credentials)
+      const {data}  = await $post("account/action/validate_code_via_email/", { type, code }, true);
+      console.log(data);
+      return { success: data.res === "Success", message: data.message };
     } catch (err: any) {
       console.log(err.message);
     }
@@ -90,49 +92,20 @@ export const useAuth = () => {
   const login = async (credentials: any) => {
     // console.log(credentials)
     const data = await $post("account/signin/", credentials, false);
-    console.log('upload document data', data);
     if (!data) return;
-    if (data.res == "Success") {
-    //   const {
-    //     pic,
-    //     username,
-    //     name,
-    //     qr_image,
-    //     cash,
-    //     number,
-    //     card_status,
-    //     card_qr,
-    //     notifications_count,
-    //     bonus,
-    //     required_document,
-    //     required_documents_status,
-    //     title,
-    //     res,
-    //   } = data;
-    //   if (res.toLowerCase() === "Success".toLowerCase()) {
-    //     // setTokens(tokens.access, tokens.refresh)
-    //     setProfile({
-    //       username,
-    //       name,
-    //       avatar: pic
-    //         ? pic.includes("//")
-    //           ? pic
-    //           : "http://127.0.0.1:8000" + pic
-    //         : null,
-    //       qr_image,
-    //       cash,
-    //       number,
-    //       card_status,
-    //       card_qr,
-    //       notifications_count,
-    //       bonus,
-    //       required_document,
-    //       required_documents_status,
-    //       title
-    //     });
-    //   }
+    const { res, message, ...profile} = data;
+    if (res == "pending") {
+      const res2 = await verifyEmail(credentials.username);
+      console.log('verify mail response', res2);
+      return { success: true, verified: false ,message };
     }
-    return true
+    if (profile && profile.username) {
+      setProfile(profile);
+      // setTokens(data.tokens.access, data.tokens.refresh);
+      return { success: true, verified: true, message: "Login Successful" };
+    }
+   
+    return { success: false, message };
   };
 
   const logout = async (account_type: any) => {
@@ -144,10 +117,13 @@ export const useAuth = () => {
   };
 
   const register = async (credentials: any) => {
+    console.log(credentials);
     const data = await $post("account/signup/", credentials, false);
-    // console.log(data);
+    console.log(data);
     if (!data) return;
-    return data.res == "Success";
+    if(data.res == "Success") {
+      return verifyEmail(credentials.username);
+    } ;
     // if (tokens) {
     //   console.log(tokens);
     //   setTokens(tokens.access, tokens.refresh);

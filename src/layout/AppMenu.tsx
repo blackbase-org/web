@@ -47,6 +47,11 @@ const AppMenu = () => {
                             label: 'Upgrade Plan',
                             icon: 'pi pi-fw pi-pencil',
                             to: '/hosting/upgrade-plan'
+                        },
+                        {
+                            label: 'Settings',
+                            icon: 'pi pi-fw pi-pencil',
+                            to: '/hosting/configs'
                         }
                     ]
                 },

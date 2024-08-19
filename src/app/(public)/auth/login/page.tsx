@@ -15,6 +15,7 @@ const Login: Page = () => {
   const [verified, setVerified] = React.useState(false);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [message, setMessage] = React.useState("");
   const { verifyAccount, login } = useAuth();
   const goToForgotPassword = () => {
     router.push("/auth/forgotpassword");
@@ -37,7 +38,12 @@ const Login: Page = () => {
     // call api to login
     const res = await login({ username, password });
     // if login is successful, navigate to dashboard
-    if (res) router.push("/dashboard");
+    setMessage(res?.message);
+    if (res?.success && res?.verified) {
+      router.push("/dashboard");
+    } else if (res?.success && !res?.verified) {
+      router.push("/auth/verification");
+    }
     // else 
   };
 

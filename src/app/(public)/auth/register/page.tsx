@@ -25,12 +25,14 @@ const Register: Page = () => {
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
-  const [referer_id, setReferer] = useState("");
+  const [refererUsername, setRefererUsername] = useState("");
+  const [referer, setReferer] = useState();
+  const [refererError, setRefererError] = useState("");
   const [step, setStep] = useState(1);
 
   const { layoutConfig } = useContext(LayoutContext);
   const router = useRouter();
-  const { register, verifyEmail } = useAuth();
+  const { register, verifyEmail, verifyAccount } = useAuth();
   //   const taost = useToast();
 
   const goToLogin = () => {
@@ -49,7 +51,7 @@ const Register: Page = () => {
       phone,
       email,
       birth,
-      referer_id,
+      referer: referer,
     });
 
     console.log("register", res);
@@ -61,16 +63,18 @@ const Register: Page = () => {
     //    else
   };
 
-  const checkUsername = (e: any) => {
+  const checkUsername = async (e: any) => {
     console.log(e.target.value);
     setUsername(e.target.value);
 
     if (e.target.value.length < 4)
       return setUsernameError("Username must be at least 4 characters");
     // call api to check username
-
+    const verified = await verifyAccount({ username: e.target.value });
+    console.log("verify username", verified);
     // if username is already taken, show error message
-    setUsernameError("Username is already taken");
+    if (verified) return setUsernameError("Username is already taken");
+    setUsernameError("");
   };
 
   const checkPassword = (e: any) => {
@@ -95,20 +99,22 @@ const Register: Page = () => {
     setConfirmPasswordError("");
   };
 
-  const checkReferer = (e: any) => {
+  const checkReferer = async (e: any) => {
     console.log(e.target.value);
-    setReferer(e.target.value);
+    setRefererUsername(e.target.value);
     // Api call
+    const referer = await verifyAccount({ username: e.target.value });
     // if referer is not found, show error message
-    setUsernameError("Referer not found");
+    if (!referer) return  setRefererError("Referer not found");
+    setReferer(referer);
   };
 
   const prevStep = () => {
-    if (step === 1) goToLogin();
+    if (step === 1) return goToLogin();
     setStep(step - 1);
   }
   const nextStep = () => {
-    if (step === 3) onSignUp();
+    if (step === 3)return  onSignUp();
     setStep(step + 1);
   }
 
@@ -306,17 +312,26 @@ const Register: Page = () => {
                      <span className="block text-600 font-medium mb-4">
                       Add your referer
                     </span>
-                     <span className="p-input-icon-left">
-                  <i className="pi pi-user"></i>
-                  <InputText
-                    type="text"
-                    autoComplete="off"
-                    placeholder="Referer"
-                    className="block mb-3"
-                    style={{ maxWidth: "320px", minWidth: "270px" }}
-                    onChange={checkReferer}
-                  />
-                </span>
+                    <div className="space-y-1">
+                      <span className="p-input-icon-left">
+                        <i className="pi pi-user"></i>
+                        <InputText
+                          type="text"
+                          autoComplete="off"
+                          placeholder="username"
+                          className="block mb-3"
+                          style={{ maxWidth: "320px", minWidth: "270px" }}
+                          onChange={checkReferer}
+                        />
+                      </span>
+                      {(refererUsername && refererError) && (
+                        <div className="mb-2">
+                          <small className="text-red-500 ">
+                            {refererError}
+                          </small>
+                        </div>
+                      )}
+                    </div>
                 <div className="mt-2 flex flex-wrap">
                   <Checkbox
                     type="checkbox"
@@ -363,7 +378,7 @@ const Register: Page = () => {
                 </div>
                 <span className="font-medium text-600">
                   Already have an account?{" "}
-                  <a className="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">
+                  <a onClick={goToLogin} className="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">
                     Login
                   </a>
                 </span>
