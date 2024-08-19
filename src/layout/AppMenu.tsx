@@ -26,22 +26,22 @@ const AppMenu = () => {
                         {
                             label: 'Files',
                             icon: 'pi pi-fw pi-image',
-                            to: '/apps/blog/list'
+                            to: '/hosting/files'
                         },
                         {
                             label: 'Emails',
                             icon: 'pi pi-fw pi-list',
-                            to: '/apps/blog/detail'
+                            to: '/hosting/emails'
                         },
                         {
-                            label: 'Applications',
+                            label: 'Apps',
                             icon: 'pi pi-fw pi-image',
-                            to: '/apps/blog/list'
+                            to: '/hosting/apps'
                         },
                         {
                             label: 'Databases',
                             icon: 'pi pi-fw pi-list',
-                            to: '/apps/blog/detail'
+                            to: '/hosting/databases'
                         },
                         {
                             label: 'Upgrade Plan',
@@ -50,11 +50,7 @@ const AppMenu = () => {
                         }
                     ]
                 },
-                {
-                    label: 'Mail Relay',
-                    icon: 'pi pi-fw pi-calendar',
-                    to: '/apps/calendar'
-                }
+                
             ]
                 
         },
@@ -64,34 +60,39 @@ const AppMenu = () => {
             icon: 'pi pi-fw pi-star-fill',
             items: [
                 {
+                    label: 'SMTP Relay',
+                    icon: 'pi pi-fw pi-calendar',
+                    to: '/services/smtp-relay'
+                },
+                {
                     label: 'Authentication',
                     icon: 'pi pi-fw pi-id-card',
-                    to: '/uikit/formlayout'
+                    to: '/services/formlayout'
                 },
                 {
                     label: 'Messaging',
                     icon: 'pi pi-fw pi-comment',
-                    to: '/uikit/input',
+                    to: '/services/messaging',
                     items: [
                         {
                             label: 'Whatsapp',
                             icon: 'pi pi-fw pi-bars',
-                            to: '/uikit/inputtext'
+                            to: '/services/wh'
                         },
                         {
                             label: 'Email',
                             icon: 'pi pi-fw pi-search',
-                            to: '/uikit/textarea'
+                            to: '/services/textarea'
                         },
                         {
                             label: 'SMS',
                             icon: 'pi pi-fw pi-calendar',
-                            to: '/uikit/calendar'
+                            to: '/services/calendar'
                         },
                         {
                             label: 'Push Notifications',
                             icon: 'pi pi-fw pi-file',
-                            to: '/uikit/fileupload'
+                            to: '/services/fileupload'
                         }
 
                     ]
@@ -99,12 +100,12 @@ const AppMenu = () => {
                 {
                     label: 'Geolocation',
                     icon: 'pi pi-fw pi-map',
-                    to: '/uikit/floatlabel'
+                    to: '/services/geolocation'
                 },
                 {
                     label: 'Storage',
                     icon: 'pi pi-fw pi-chart-bar',
-                    to: '/uikit/fieldset'
+                    to: '/services/storage'
                 }
                
             ]
